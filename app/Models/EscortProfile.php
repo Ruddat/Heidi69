@@ -22,6 +22,8 @@ class EscortProfile extends Model
         'hautfarbe' => 'array',
         'augenfarbe' => 'array',
         'intimbehaarung' => 'array',
+        'piercing' => 'array',
+        'sonstiges'=> 'array',
 
 
 

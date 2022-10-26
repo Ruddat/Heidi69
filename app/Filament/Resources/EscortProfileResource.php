@@ -19,6 +19,9 @@ use App\Models\EscortBrust;
 use App\Models\EscortHaare;
 use App\Models\EscortHautfarbe;
 use App\Models\EscortIntimbeharung;
+use App\Models\EscortPiercing;
+use App\Models\EscortSonstiges;
+use App\Models\EscortType;
 use Filament\Forms\Components\CheckboxList;
 
 class EscortProfileResource extends Resource
@@ -58,6 +61,7 @@ class EscortProfileResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('telefon')
                     ->tel()
+                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
@@ -115,7 +119,6 @@ class EscortProfileResource extends Resource
                 ->options(EscortHautfarbe::all()->pluck('hautfarbe', 'hautfarbe'))
                 ->searchable(),
 
-
                 Select::make('augenfarbe')
                 ->label('Augenfarbe')
                 ->options(EscortAugenfarbe::all()->pluck('augenfarbe', 'augenfarbe'))
@@ -128,16 +131,29 @@ class EscortProfileResource extends Resource
                 ->options(EscortIntimbeharung::all()->pluck('intimbehaarung', 'intimbehaarung'))
                 ->searchable(),
 
+                CheckboxList::make('koerperschmuck')
+                ->label('Körperschmuck')
+                ->options(EscortPiercing::all()->pluck('piercing', 'piercing')),
 
-                Forms\Components\TextInput::make('koerperschmuck'),
-                Forms\Components\TextInput::make('sonstiges'),
+                CheckboxList::make('sonstiges')
+                ->label('Sonstiges')
+                ->options(EscortSonstiges::all()->pluck('sonstiges', 'sonstiges')),
+
                 Forms\Components\TextInput::make('penislaenge')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('penisgrösse')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('herkunftsland')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('typ'),
+
+
+                    Select::make('typ')
+                ->label('Typ')
+                ->options(EscortType::all()->pluck('typ', 'typ'))
+                ->searchable(),
+
+
+
                 Forms\Components\TextInput::make('sprachen'),
                 Forms\Components\TextInput::make('allg_service'),
                 Forms\Components\TextInput::make('service_fuer'),

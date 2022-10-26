@@ -39,6 +39,11 @@ class DatabaseSeeder extends Seeder
             EscortHautfarbeSeeder::class,
             EscortAugenfarbeSeeder::class,
             EscortIntimbeharungSeeder::class,
+            EscortPiercingSeeder::class,
+            EscortSonstigesSeeder::class,
+            EscortTypeSeeder::class,
+
+
            //  PostSeeder::class,
           //  CommentSeeder::class,
         ]);
