@@ -30,5 +30,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\EscortProfile::factory(200)->create();
 
 
+        $this->call([
+            EscortPersoenlichkeitSeeder::class,
+            EscortHaareSeeder::class,
+          //  PostSeeder::class,
+          //  CommentSeeder::class,
+        ]);
+
+
     }
 }

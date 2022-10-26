@@ -14,4 +14,9 @@ class EscortProfile extends Model
 
 
     ];
+
+    protected $casts = [
+        "persoenlichkeit" => 'array',
+        'haare' => 'array',
+     ];
 }
