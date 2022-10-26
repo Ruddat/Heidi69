@@ -18,5 +18,13 @@ class EscortProfile extends Model
     protected $casts = [
         "persoenlichkeit" => 'array',
         'haare' => 'array',
+        'busen_merkmale' => 'array',
+        'hautfarbe' => 'array',
+        'augenfarbe' => 'array',
+        'intimbehaarung' => 'array',
+
+
+
+
      ];
 }

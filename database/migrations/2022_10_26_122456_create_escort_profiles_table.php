@@ -28,12 +28,12 @@ return new class extends Migration
             $table->boolean('adresse_an_aus')->nullable();
             $table->boolean('wohnt_hier')->nullable();
             $table->string('kuenstlername')->nullable();
-            $table->string('telefon')->nullable();
+            $table->text('telefon')->nullable();
             $table->string('email')->nullable();
             $table->string('zweite-email')->nullable();
             $table->string('internetadresse')->nullable();
             // Kontakt für Rückfragen, Bildrechte etc.
-            $table->string('telefon_privat')->nullable();
+            $table->text('telefon_privat')->nullable();
             $table->string('email_privat')->nullable();
             $table->boolean('whatsapp_sms_privat')->nullable();
             // Fotos

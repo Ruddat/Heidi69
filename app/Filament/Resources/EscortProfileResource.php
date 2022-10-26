@@ -14,7 +14,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EscortProfileResource\Pages;
 use App\Filament\Resources\EscortProfileResource\RelationManagers;
+use App\Models\EscortAugenfarbe;
+use App\Models\EscortBrust;
 use App\Models\EscortHaare;
+use App\Models\EscortHautfarbe;
+use App\Models\EscortIntimbeharung;
 use Filament\Forms\Components\CheckboxList;
 
 class EscortProfileResource extends Resource
@@ -28,7 +32,7 @@ class EscortProfileResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('kundenname')
-                    
+
                     ->required()
                     ->maxLength(255),
 
@@ -64,7 +68,7 @@ class EscortProfileResource extends Resource
                 Forms\Components\TextInput::make('internetadresse')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('telefon_privat')
-                    ->tel()
+
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email_privat')
                     ->email()
@@ -91,7 +95,12 @@ class EscortProfileResource extends Resource
 
                 Forms\Components\TextInput::make('bh_groesse')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('busen_merkmale'),
+
+                Select::make('busen_merkmale')
+                ->label('Busen / Körper')
+                ->options(EscortBrust::all()->pluck('busen_merkmale', 'busen_merkmale'))
+                ->searchable(),
+
                 Forms\Components\TextInput::make('konfektion_groesse')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('koerper_groesse')
@@ -100,9 +109,26 @@ class EscortProfileResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('schuh_groesse')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('hautfarbe'),
-                Forms\Components\TextInput::make('augenfarbe'),
+
+                Select::make('hautfarbe')
+                ->label('Hautfarbe')
+                ->options(EscortHautfarbe::all()->pluck('hautfarbe', 'hautfarbe'))
+                ->searchable(),
+
+
+                Select::make('augenfarbe')
+                ->label('Augenfarbe')
+                ->options(EscortAugenfarbe::all()->pluck('augenfarbe', 'augenfarbe'))
+                ->searchable(),
+
                 Forms\Components\TextInput::make('intimbehaarung'),
+
+                Select::make('intimbehaarung')
+                ->label('Körper- und Intimbehaarung')
+                ->options(EscortIntimbeharung::all()->pluck('intimbehaarung', 'intimbehaarung'))
+                ->searchable(),
+
+
                 Forms\Components\TextInput::make('koerperschmuck'),
                 Forms\Components\TextInput::make('sonstiges'),
                 Forms\Components\TextInput::make('penislaenge')
@@ -160,6 +186,8 @@ class EscortProfileResource extends Resource
                 Tables\Columns\TextColumn::make('haare'),
                 Tables\Columns\TextColumn::make('bh_groesse'),
                 Tables\Columns\TextColumn::make('busen_merkmale'),
+
+
                 Tables\Columns\TextColumn::make('konfektion_groesse'),
                 Tables\Columns\TextColumn::make('koerper_groesse'),
                 Tables\Columns\TextColumn::make('koerper_gewicht'),
