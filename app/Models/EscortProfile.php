@@ -24,6 +24,10 @@ class EscortProfile extends Model
         'intimbehaarung' => 'array',
         'piercing' => 'array',
         'sonstiges'=> 'array',
+        'typ' => 'array',
+        'sprachen' => 'array',
+        'allg_service' => 'array',
+        'EscortServicefuer' => 'array',
 
 
 

@@ -28,6 +28,7 @@ class EscortProfileFactory extends Factory
             'email' => $this->faker->email(),
             'zweite-email' => $this->faker->freeEmail(),
             'internetadresse' => $this->faker->url(),
+            'beschreibung' => $this->faker->realText(400, 2),
 
         ];
     }

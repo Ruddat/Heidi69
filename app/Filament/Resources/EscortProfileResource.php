@@ -4,25 +4,32 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use App\Models\EscortType;
+use App\Models\EscortBrust;
+use App\Models\EscortHaare;
 use Filament\Resources\Form;
 use App\Models\EscortProfile;
+use App\Models\EscortVerkehr;
 use Filament\Resources\Table;
+use App\Models\EscortPiercing;
+use App\Models\EscortSprachen;
+use App\Models\EscortAllgemein;
+use App\Models\EscortHautfarbe;
+use App\Models\EscortSonstiges;
+use App\Models\EscortAugenfarbe;
 use Filament\Resources\Resource;
+use App\Models\EscortServicefuer;
+use App\Models\EscortIntimbeharung;
 use App\Models\EscortPersoenlichkeit;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\CheckboxList;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EscortProfileResource\Pages;
 use App\Filament\Resources\EscortProfileResource\RelationManagers;
-use App\Models\EscortAugenfarbe;
-use App\Models\EscortBrust;
-use App\Models\EscortHaare;
-use App\Models\EscortHautfarbe;
-use App\Models\EscortIntimbeharung;
-use App\Models\EscortPiercing;
-use App\Models\EscortSonstiges;
-use App\Models\EscortType;
-use Filament\Forms\Components\CheckboxList;
+use App\Models\EscortMassage;
+use App\Models\EscortServiceDetail;
 
 class EscortProfileResource extends Resource
 {
@@ -72,8 +79,10 @@ class EscortProfileResource extends Resource
                 Forms\Components\TextInput::make('internetadresse')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('telefon_privat')
-
+                    ->tel()
+                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                     ->maxLength(255),
+
                 Forms\Components\TextInput::make('email_privat')
                     ->email()
                     ->maxLength(255),
@@ -85,7 +94,10 @@ class EscortProfileResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('foto_retusche')
                     ->maxLength(255),
-                Forms\Components\Toggle::make('alter'),
+                Forms\Components\Toggle::make('alter')
+                ->onColor('success')
+                ->offColor('danger'),
+
                 Forms\Components\TextInput::make('persoenlichkeit'),
 
                 Select::make('persoenlichkeit')
@@ -147,21 +159,46 @@ class EscortProfileResource extends Resource
                     ->maxLength(255),
 
 
-                    Select::make('typ')
+                Select::make('typ')
                 ->label('Typ')
                 ->options(EscortType::all()->pluck('typ', 'typ'))
                 ->searchable(),
 
+                CheckboxList::make('sprachen')
+                ->label('Sprachen')
+                ->options(EscortSprachen::all()->pluck('sprachen', 'sprachen')),
+
+                CheckboxList::make('allg_service')
+                ->label('Allgemein')
+                ->options(EscortAllgemein::all()->pluck('allg_service', 'allg_service')),
+
+                CheckboxList::make('service_fuer')
+                ->label('Service für')
+                ->options(EscortServicefuer::all()->pluck('service_fuer', 'service_fuer')),
 
 
-                Forms\Components\TextInput::make('sprachen'),
-                Forms\Components\TextInput::make('allg_service'),
-                Forms\Components\TextInput::make('service_fuer'),
-                Forms\Components\TextInput::make('verkehr'),
+                CheckboxList::make('verkehr')
+                ->label('Verkehr')
+                ->options(EscortVerkehr::all()->pluck('verkehr', 'verkehr')),
+
+                Forms\Components\TextInput::make('gv_preis')
+                ->label('GV ab ca.'),
+
+
                 Forms\Components\TextInput::make('massage'),
-                Forms\Components\TextInput::make('service_detail'),
+                CheckboxList::make('massage')
+                ->label('massage')
+                ->options(EscortMassage::all()->pluck('massage', 'massage')),
+
+
+                CheckboxList::make('service_detail')
+                ->label('Service im Detail')
+                ->options(EscortServiceDetail::all()->pluck('service_detail', 'service_detail')),
+
+
                 Forms\Components\TextInput::make('fetisch_bizar'),
                 Forms\Components\TextInput::make('bizar'),
+                RichEditor::make('beschreibung')
             ]);
     }
 
@@ -169,7 +206,9 @@ class EscortProfileResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kundenname')->searchable(),
+                Tables\Columns\TextColumn::make('kundenname')
+                ->sortable()
+                ->searchable(),
                 Tables\Columns\TextColumn::make('khk'),
                 Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('land'),

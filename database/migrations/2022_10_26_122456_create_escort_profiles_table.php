@@ -67,10 +67,14 @@ return new class extends Migration
             $table->json('allg_service')->nullable();
             $table->json('service_fuer')->nullable();
             $table->json('verkehr')->nullable();
+            $table->text('gv_preis')->nullable();
             $table->json('massage')->nullable();
             $table->json('service_detail')->nullable();
             $table->json('fetisch_bizar')->nullable();
             $table->json('bizar')->nullable();
+            $table->longText('beschreibung')->nullable();
+
+
             $table->softDeletes();
 
             $table->timestamps();
