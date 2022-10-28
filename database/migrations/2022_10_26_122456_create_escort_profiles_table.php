@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('klingelname')->nullable();
             $table->string('stockwerk')->nullable();
             $table->string('eaid')->nullable();
-            $table->boolean('adresse_an_aus')->nullable();
-            $table->boolean('wohnt_hier')->nullable();
+            $table->boolean('adresse_an_aus')->nullable()->default(false);
+            $table->boolean('wohnt_hier')->nullable()->default(false);
             $table->string('kuenstlername')->nullable();
             $table->text('telefon')->nullable();
             $table->string('email')->nullable();
@@ -35,9 +35,9 @@ return new class extends Migration
             // Kontakt für Rückfragen, Bildrechte etc.
             $table->text('telefon_privat')->nullable();
             $table->string('email_privat')->nullable();
-            $table->boolean('whatsapp_sms_privat')->nullable();
+            $table->boolean('whatsapp_sms_privat')->nullable()->default(false);
             // Fotos
-            $table->boolean('gesicht_sichtbar')->nullable();
+            $table->boolean('gesicht_sichtbar')->nullable()->default(false);
             $table->string('gesicht_unkentlich')->nullable();
             $table->string('tatu_entfernen')->nullable();
             $table->string('foto_retusche')->nullable();
@@ -70,8 +70,10 @@ return new class extends Migration
             $table->text('gv_preis')->nullable();
             $table->json('massage')->nullable();
             $table->json('service_detail')->nullable();
+            $table->json('service_basic')->nullable();
             $table->json('fetisch_bizar')->nullable();
-            $table->json('bizar')->nullable();
+            $table->json('fetisch_basic')->nullable();
+            $table->json('bizarr')->nullable();
             $table->longText('beschreibung')->nullable();
 
 

@@ -22,15 +22,20 @@ class EscortProfile extends Model
         'hautfarbe' => 'array',
         'augenfarbe' => 'array',
         'intimbehaarung' => 'array',
+        'koerperschmuck' => 'array',
         'piercing' => 'array',
         'sonstiges'=> 'array',
         'typ' => 'array',
         'sprachen' => 'array',
         'allg_service' => 'array',
-        'EscortServicefuer' => 'array',
-
-
-
+        'service_fuer'  => 'array',
+        'verkehr'   => 'array',
+        'massage' => 'array',
+        'service_detail' => 'array',
+        'service_basic' => 'array',
+        'fetisch_basic' => 'array',
+        'fetisch_bizar' => 'array',
+        'bizarr' => 'array',
 
      ];
 }

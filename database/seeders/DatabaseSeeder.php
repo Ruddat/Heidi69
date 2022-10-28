@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\EscortFetischBasic;
 use App\Models\EscortSprachen;
 use Illuminate\Database\Seeder;
 
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\User::factory(10)->create();
 
-        \App\Models\EscortProfile::factory(30)->create();
+        \App\Models\EscortProfile::factory(6)->create();
 
 
         $this->call([
@@ -48,6 +49,10 @@ class DatabaseSeeder extends Seeder
             EscortVerkehrSeeder::class,
             EscortMassageSeeder::class,
             EscortServiceDetailSeeder::class,
+            EscortServiceBasicSeeder::class,
+            EscortFetischBiszarrSeeder::class,
+            EscortFetischBasicSeeder::class,
+            EscortBizarrSeeder::class,
 
 
            //  PostSeeder::class,

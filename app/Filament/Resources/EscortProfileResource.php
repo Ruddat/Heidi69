@@ -7,7 +7,9 @@ use Filament\Tables;
 use App\Models\EscortType;
 use App\Models\EscortBrust;
 use App\Models\EscortHaare;
+use App\Models\EscortBizarr;
 use Filament\Resources\Form;
+use App\Models\EscortMassage;
 use App\Models\EscortProfile;
 use App\Models\EscortVerkehr;
 use Filament\Resources\Table;
@@ -19,17 +21,27 @@ use App\Models\EscortSonstiges;
 use App\Models\EscortAugenfarbe;
 use Filament\Resources\Resource;
 use App\Models\EscortServicefuer;
+use App\Models\EscortFetischBasic;
+use App\Models\EscortServiceBasic;
 use App\Models\EscortIntimbeharung;
+use App\Models\EscortServiceDetail;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Tabs;
+use App\Models\EscortFetischBiszarr;
+use Filament\Forms\Components\Radio;
 use App\Models\EscortPersoenlichkeit;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\RichEditor;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\TextInput\Mask;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EscortProfileResource\Pages;
 use App\Filament\Resources\EscortProfileResource\RelationManagers;
-use App\Models\EscortMassage;
-use App\Models\EscortServiceDetail;
 
 class EscortProfileResource extends Resource
 {
@@ -41,164 +53,119 @@ class EscortProfileResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('kundenname')
+                Tabs::make('Heading')
+                ->columnSpan(12)
+                ->tabs([
+                    Tabs\Tab::make('Pers. Daten')
 
-                    ->required()
-                    ->maxLength(255),
-
-                Forms\Components\TextInput::make('khk')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('land')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('plz')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('ort')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('klingelname')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('stockwerk')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('eaid')
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('adresse_an_aus'),
-                Forms\Components\Toggle::make('wohnt_hier'),
-                Forms\Components\TextInput::make('kuenstlername')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('telefon')
-                    ->tel()
-                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('zweite-email')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('internetadresse')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('telefon_privat')
-                    ->tel()
-                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
-                    ->maxLength(255),
-
-                Forms\Components\TextInput::make('email_privat')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('whatsapp_sms_privat'),
-                Forms\Components\Toggle::make('gesicht_sichtbar'),
-                Forms\Components\TextInput::make('gesicht_unkentlich')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('tatu_entfernen')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('foto_retusche')
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('alter')
-                ->onColor('success')
-                ->offColor('danger'),
-
-                Forms\Components\TextInput::make('persoenlichkeit'),
-
-                Select::make('persoenlichkeit')
-                ->label('Persönlichleit')
-                ->options(EscortPersoenlichkeit::all()->pluck('persoenlichkeit', 'persoenlichkeit'))
-                ->searchable(),
-
-                CheckboxList::make('haare')
-                ->label('Haare')
-                ->options(EscortHaare::all()->pluck('haare', 'haare')),
-
-                Forms\Components\TextInput::make('bh_groesse')
-                    ->maxLength(255),
-
-                Select::make('busen_merkmale')
-                ->label('Busen / Körper')
-                ->options(EscortBrust::all()->pluck('busen_merkmale', 'busen_merkmale'))
-                ->searchable(),
-
-                Forms\Components\TextInput::make('konfektion_groesse')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('koerper_groesse')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('koerper_gewicht')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('schuh_groesse')
-                    ->maxLength(255),
-
-                Select::make('hautfarbe')
-                ->label('Hautfarbe')
-                ->options(EscortHautfarbe::all()->pluck('hautfarbe', 'hautfarbe'))
-                ->searchable(),
-
-                Select::make('augenfarbe')
-                ->label('Augenfarbe')
-                ->options(EscortAugenfarbe::all()->pluck('augenfarbe', 'augenfarbe'))
-                ->searchable(),
-
-                Forms\Components\TextInput::make('intimbehaarung'),
-
-                Select::make('intimbehaarung')
-                ->label('Körper- und Intimbehaarung')
-                ->options(EscortIntimbeharung::all()->pluck('intimbehaarung', 'intimbehaarung'))
-                ->searchable(),
-
-                CheckboxList::make('koerperschmuck')
-                ->label('Körperschmuck')
-                ->options(EscortPiercing::all()->pluck('piercing', 'piercing')),
-
-                CheckboxList::make('sonstiges')
-                ->label('Sonstiges')
-                ->options(EscortSonstiges::all()->pluck('sonstiges', 'sonstiges')),
-
-                Forms\Components\TextInput::make('penislaenge')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('penisgrösse')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('herkunftsland')
-                    ->maxLength(255),
+                        ->schema([
+                            // ...
+                            Grid::make([
+                                'default' => 1,
+                                'sm' => 2,
+                                'md' => 3,
+                                'lg' => 4,
+                                'xl' => 6,
+                                '2xl' => 8,
+                            ])
+                                ->schema([
+                                    // ...
+                                    Fieldset::make('Daten bitte hier eintragen')
+    ->schema([
+        // ...
+        Forms\Components\TextInput::make('kundenname')
+        ->required()
+        ->autofocus()
+        ->placeholder('John Doe')
+        ->maxLength(100),
 
 
-                Select::make('typ')
-                ->label('Typ')
-                ->options(EscortType::all()->pluck('typ', 'typ'))
-                ->searchable(),
-
-                CheckboxList::make('sprachen')
-                ->label('Sprachen')
-                ->options(EscortSprachen::all()->pluck('sprachen', 'sprachen')),
-
-                CheckboxList::make('allg_service')
-                ->label('Allgemein')
-                ->options(EscortAllgemein::all()->pluck('allg_service', 'allg_service')),
-
-                CheckboxList::make('service_fuer')
-                ->label('Service für')
-                ->options(EscortServicefuer::all()->pluck('service_fuer', 'service_fuer')),
-
-
-                CheckboxList::make('verkehr')
-                ->label('Verkehr')
-                ->options(EscortVerkehr::all()->pluck('verkehr', 'verkehr')),
-
-                Forms\Components\TextInput::make('gv_preis')
-                ->label('GV ab ca.'),
+    Forms\Components\TextInput::make('khk')
+        ->maxLength(50),
+    Forms\Components\TextInput::make('slug')
+        ->maxLength(255),
+    Forms\Components\TextInput::make('land')
+        ->maxLength(255),
+    Forms\Components\TextInput::make('plz')
+        ->maxLength(255),
+    Forms\Components\TextInput::make('ort')
+        ->maxLength(255),
+    Forms\Components\TextInput::make('klingelname')
+        ->maxLength(255),
+    Forms\Components\TextInput::make('stockwerk')
+        ->maxLength(255),
+    Forms\Components\TextInput::make('eaid')
+        ->maxLength(255),
 
 
-                Forms\Components\TextInput::make('massage'),
-                CheckboxList::make('massage')
-                ->label('massage')
-                ->options(EscortMassage::all()->pluck('massage', 'massage')),
+    Radio::make('adresse_an_aus')
+    ->label('Adresse darf nicht veröffentlicht werden')
+    ->boolean()
+    ->inline(),
+
+Radio::make('wohnt_hier')
+    ->label('Privatadresse (wohnt auch hier)')
+    ->boolean()
+    ->inline(),
 
 
-                CheckboxList::make('service_detail')
-                ->label('Service im Detail')
-                ->options(EscortServiceDetail::all()->pluck('service_detail', 'service_detail')),
+
+    Forms\Components\TextInput::make('kuenstlername')
+        ->maxLength(255),
+    Forms\Components\TextInput::make('telefon')
+        ->tel()
+        ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+        ->maxLength(255),
+    Forms\Components\TextInput::make('email')
+        ->email()
+        ->maxLength(255),
+    Forms\Components\TextInput::make('zweite-email')
+        ->email()
+        ->maxLength(255),
+    Forms\Components\TextInput::make('internetadresse')
+        ->maxLength(255),
+
+    ])
+    ->columns(3),
+
+    Fieldset::make('Label')
+    ->schema([
+        // ...
+        Forms\Components\TextInput::make('kundenname')
+        ->required()
+        ->autofocus()
+        ->placeholder('John Doe')
+        ->maxLength(255),
+        Forms\Components\TextInput::make('land')
+        ->maxLength(255),
+        Forms\Components\TextInput::make('khk')
+        ->maxLength(255),
+    ])
+    ->columns(2),
+    Card::make()
+    ->schema([
+        // ...
+    ])
+
+                                ])
+
+                        ]),
+                    Tabs\Tab::make('Label 2')
+                        ->schema([
+                            // ...
+                        ]),
+                    Tabs\Tab::make('Label 3')
+                        ->schema([
+                            // ...
+                        ]),
+                        Tabs\Tab::make('Label 4')
+                        ->schema([
+                            // ...
+                        ]),
+                    ]),
 
 
-                Forms\Components\TextInput::make('fetisch_bizar'),
-                Forms\Components\TextInput::make('bizar'),
-                RichEditor::make('beschreibung')
+
             ]);
     }
 
@@ -207,8 +174,15 @@ class EscortProfileResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('kundenname')
+                ->label('Kundenname')
+                ->translateLabel()
                 ->sortable()
                 ->searchable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                ->label('Erstellt')
+                ->dateTime()
+                ->since(),
+
                 Tables\Columns\TextColumn::make('khk'),
                 Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('land'),
@@ -268,9 +242,9 @@ class EscortProfileResource extends Resource
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
-            ])
+
+            ])->defaultSort('updated_at', 'desc')
+
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
