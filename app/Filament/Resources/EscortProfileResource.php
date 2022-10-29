@@ -28,6 +28,7 @@ use App\Models\EscortServiceDetail;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Tabs;
+use Livewire\TemporaryUploadedFile;
 use App\Models\EscortFetischBiszarr;
 use Filament\Forms\Components\Radio;
 use App\Models\EscortPersoenlichkeit;
@@ -41,6 +42,7 @@ use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\TextInput\Mask;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EscortProfileResource\Pages;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use App\Filament\Resources\EscortProfileResource\RelationManagers;
 
 class EscortProfileResource extends Resource
@@ -160,8 +162,26 @@ Radio::make('wohnt_hier')
                         ]),
                         Tabs\Tab::make('Label 4')
                         ->schema([
-                            // ...
-                        ]),
+
+                            SpatieMediaLibraryFileUpload::make('fotos')
+                            ->image()
+                            ->collection('escortfotos')
+                            ->multiple()
+                            ->enableReordering()
+                            ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                return (string) str($file->getClientOriginalName())->prepend('heidi-kaufmich-');
+                            })
+                            ->columnSpan(6),
+
+                            SpatieMediaLibraryFileUpload::make('profibg')
+                            ->image()
+                            ->collection('escorthintergrund')
+                            ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
+                                return (string) str($file->getClientOriginalName())->prepend('heidi-kaufmich-');
+                            })
+                            ->columnSpan(6),
+
+                        ])->columns(12),
                     ]),
 
 
