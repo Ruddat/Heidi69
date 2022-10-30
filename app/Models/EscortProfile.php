@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+
 
 class EscortProfile extends Model implements HasMedia
 {
@@ -40,4 +41,7 @@ class EscortProfile extends Model implements HasMedia
         'bizarr' => 'array',
 
      ];
+
+
+
 }

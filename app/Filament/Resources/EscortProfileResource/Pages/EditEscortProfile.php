@@ -10,6 +10,13 @@ class EditEscortProfile extends EditRecord
 {
     protected static string $resource = EscortProfileResource::class;
 
+    protected function afterSave(): void
+    {
+        // Runs after the form fields are saved to the database.
+        $this->fillForm();
+
+    }
+
     protected function getActions(): array
     {
         return [

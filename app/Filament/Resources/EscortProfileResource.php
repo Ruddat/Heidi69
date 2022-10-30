@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Tables;
 use App\Models\EscortType;
 use App\Models\EscortBrust;
@@ -25,7 +24,6 @@ use App\Models\EscortFetischBasic;
 use App\Models\EscortServiceBasic;
 use App\Models\EscortIntimbeharung;
 use App\Models\EscortServiceDetail;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Tabs;
 use Livewire\TemporaryUploadedFile;
@@ -33,17 +31,18 @@ use App\Models\EscortFetischBiszarr;
 use Filament\Forms\Components\Radio;
 use App\Models\EscortPersoenlichkeit;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Checkbox;
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Tabs\Tab;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
+
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\Placeholder;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Forms\Components\CheckboxList;
-use Filament\Forms\Components\TextInput\Mask;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EscortProfileResource\Pages;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use App\Filament\Resources\EscortProfileResource\RelationManagers;
 
 class EscortProfileResource extends Resource
 {
@@ -55,134 +54,346 @@ class EscortProfileResource extends Resource
     {
         return $form
             ->schema([
-                Tabs::make('Heading')
-                ->columnSpan(12)
+
+                Tabs::make('Heading')->columnSpan(12)
+
                 ->tabs([
-                    Tabs\Tab::make('Pers. Daten')
+                    Tabs\Tab::make('Kundendaten')
 
                         ->schema([
                             // ...
+
                             Grid::make([
                                 'default' => 1,
-                                'sm' => 2,
-                                'md' => 3,
-                                'lg' => 4,
+                                'sm' => 3,
                                 'xl' => 6,
                                 '2xl' => 8,
                             ])
                                 ->schema([
+
                                     // ...
-                                    Fieldset::make('Daten bitte hier eintragen')
-    ->schema([
-        // ...
-        Forms\Components\TextInput::make('kundenname')
-        ->required()
-        ->autofocus()
-        ->placeholder('John Doe')
-        ->maxLength(100),
+
+                                    TextInput::make('kundenname')
+                                    ->columnSpan([
+                                        'sm' => 2,
+                                        'xl' => 6,
+                                        '2xl' => 7,
+                                    ])
+                                    ->label('Kundenname')
+                                    ->required()
+                                    //->autofocus()
+                                    ->maxLength(255),
 
 
-    Forms\Components\TextInput::make('khk')
-        ->maxLength(50),
-    Forms\Components\TextInput::make('slug')
-        ->maxLength(255),
-    Forms\Components\TextInput::make('land')
-        ->maxLength(255),
-    Forms\Components\TextInput::make('plz')
-        ->maxLength(255),
-    Forms\Components\TextInput::make('ort')
-        ->maxLength(255),
-    Forms\Components\TextInput::make('klingelname')
-        ->maxLength(255),
-    Forms\Components\TextInput::make('stockwerk')
-        ->maxLength(255),
-    Forms\Components\TextInput::make('eaid')
-        ->maxLength(255),
+                            TextInput::make('khk')
+                            ->columnSpan([
+                                'sm' => 2,
+                                'xl' => 4,
+                                '2xl' => 5,
+                            ])
+                            ->label('KHK (wenn vorhanden')
+                            ->maxLength(255),
+
+                            TextInput::make('strasse')
+                            ->columnSpan([
+                                'sm' => 4,
+                                'xl' => 10,
+                                '2xl' => 10,
+                            ])
+                            ->label('Strasse')
+                            ->maxLength(255),
+
+                            TextInput::make('land')
+                            ->columnSpan([
+                                'sm' => 4,
+                                'xl' => 4,
+                                '2xl' => 4,
+                            ])
+                            ->label('Land (D,A,CH...)')
+                            ->required()
+                            ->maxLength(255),
 
 
-    Radio::make('adresse_an_aus')
-    ->label('Adresse darf nicht veröffentlicht werden')
-    ->boolean()
-    ->inline(),
+                            TextInput::make('plz')
+                            ->columnSpan([
+                                'sm' => 2,
+                                'xl' => 3,
+                                '2xl' => 4,
+                            ])
+                            ->label('PLZ')
+                            ->required()
+                            ->maxLength(255),
 
-Radio::make('wohnt_hier')
-    ->label('Privatadresse (wohnt auch hier)')
-    ->boolean()
-    ->inline(),
+                            TextInput::make('ort')
+                            ->columnSpan([
+                                'sm' => 2,
+                                'xl' => 3,
+                                '2xl' => 4,
+                            ])
+                            ->label('Ort')
+                            ->required()
+                            ->maxLength(255),
+
+
+                                    ]),
 
 
 
-    Forms\Components\TextInput::make('kuenstlername')
-        ->maxLength(255),
-    Forms\Components\TextInput::make('telefon')
-        ->tel()
-        ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
-        ->maxLength(255),
-    Forms\Components\TextInput::make('email')
-        ->email()
-        ->maxLength(255),
-    Forms\Components\TextInput::make('zweite-email')
-        ->email()
-        ->maxLength(255),
-    Forms\Components\TextInput::make('internetadresse')
-        ->maxLength(255),
 
-    ])
-    ->columns(3),
+                            TextInput::make('klingelname')
+                            ->label('Klingelname')
+                            ->maxLength(255),
 
-    Fieldset::make('Label')
-    ->schema([
-        // ...
-        Forms\Components\TextInput::make('kundenname')
-        ->required()
-        ->autofocus()
-        ->placeholder('John Doe')
-        ->maxLength(255),
-        Forms\Components\TextInput::make('land')
-        ->maxLength(255),
-        Forms\Components\TextInput::make('khk')
-        ->maxLength(255),
-    ])
-    ->columns(2),
-    Card::make()
-    ->schema([
-        // ...
-    ])
+                            TextInput::make('stockwerk')
+                            ->label('Stockwerk, Hinterhof etc.')
+                            ->maxLength(100),
 
-                                ])
+                            TextInput::make('kuenstlername')
+                            ->label('Künstlername / Modell (erscheint in den Online-Anzeigen)')
+                            ->maxLength(255),
+
+                            TextInput::make('telefon')
+                            ->label('Telefon (erscheint in den Online-Anzeigen)')
+                            ->tel()
+                            ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                            ->maxLength(255),
+
+                            Radio::make('wohnt_hier')
+                            ->label('WhatsApp möglich')
+                            ->boolean()
+                            ->inline(),
+
+                            Radio::make('wohnt_hier')
+                            ->label('Gäste-SMS möglich')
+                            ->boolean()
+                            ->inline(),
+
+                            TextInput::make('email')
+                            ->label('E-Mail (erscheint anonym in den Online-Anzeigen)')
+                            ->email()
+                            ->maxLength(255),
+
+                            TextInput::make('telefon')
+                            ->label('2. Telefon z.B. Infoband (ers. in den Online-Anzeigen)')
+                            ->tel()
+                            ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                            ->maxLength(255),
+
+                            TextInput::make('internetadresse')
+                            ->label('Internet-Adresse')
+                            ->maxLength(255),
+
+                            TextInput::make('eaid')
+                            ->label('EAID (wenn vorhanden)')
+                            ->maxLength(255),
+
+                            Radio::make('adresse_an_aus')
+                            ->label('Adresse darf nicht veröffentlicht werden')
+                            ->boolean()
+                            ->inline(),
+
+                            Radio::make('wohnt_hier')
+                            ->label('Privatadresse (wohnt auch hier)')
+                            ->boolean()
+                            ->inline(),
+
+                            // Intern muss Card angelegt werden
+
+                            TextInput::make('telefon_privat')
+                            ->label('Telefon /Fax (privat)')
+                            ->tel()
+                            ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                            ->maxLength(255),
+
+                            TextInput::make('email_privat')
+                            ->label('E-Mail (privat)')
+                            ->email()
+                            ->maxLength(255),
+
+                            Radio::make('whatsapp_sms_privat')
+                            ->label('WhatsApp / SMS')
+                            ->boolean()
+                            ->inline(),
 
                         ]),
-                    Tabs\Tab::make('Label 2')
+
+
+                    Tabs\Tab::make('Eigenschaften')
                         ->schema([
                             // ...
+                            TextInput::make('alter')
+                            ->maxLength(2),
+
+                            Select::make('persoenlichkeit')
+                            ->label('Persönlichleit')
+                            ->options(EscortPersoenlichkeit::all()->pluck('persoenlichkeit', 'persoenlichkeit'))
+                            ->searchable(),
+
+                            CheckboxList::make('haare')
+                            ->label('Haare')
+                            ->options(EscortHaare::all()->pluck('haare', 'haare')),
+
+                            // Busen Körper
+                            TextInput::make('bh_groesse')
+                            ->maxLength(5),
+
+                            Select::make('busen_merkmale')
+                            ->label('Busen / Körper')
+                            ->options(EscortBrust::all()->pluck('busen_merkmale', 'busen_merkmale'))
+                            ->searchable(),
+
+                            TextInput::make('konfektion_groesse')
+                            ->maxLength(5),
+                            TextInput::make('koerper_groesse')
+                            ->maxLength(5),
+                            TextInput::make('koerper_gewicht')
+                            ->maxLength(5),
+                            TextInput::make('schuh_groesse')
+                            ->maxLength(5),
+
+                            Select::make('hautfarbe')
+                            ->label('Hautfarbe')
+                            ->options(EscortHautfarbe::all()->pluck('hautfarbe', 'hautfarbe'))
+                            ->searchable(),
+
+                            Select::make('augenfarbe')
+                            ->label('Augenfarbe')
+                            ->options(EscortAugenfarbe::all()->pluck('augenfarbe', 'augenfarbe'))
+                            ->searchable(),
+
+                            Select::make('intimbehaarung')
+                            ->label('Körper- und Intimbehaarung')
+                            ->options(EscortIntimbeharung::all()->pluck('intimbehaarung', 'intimbehaarung'))
+                            ->searchable(),
+
+                            CheckboxList::make('koerperschmuck')
+                            ->label('Körperschmuck')
+                            ->options(EscortPiercing::all()->pluck('piercing', 'piercing')),
+
+                            CheckboxList::make('sonstiges')
+                            ->label('Sonstiges')
+                            ->options(EscortSonstiges::all()->pluck('sonstiges', 'sonstiges')),
+
+                            TextInput::make('penislaenge')
+                            ->maxLength(255),
+                            TextInput::make('penisgrösse')
+                            ->maxLength(255),
+                            TextInput::make('herkunftsland')
+                            ->maxLength(255),
+
+                            Select::make('typ')
+                            ->label('Typ')
+                            ->options(EscortType::all()->pluck('typ', 'typ'))
+                            ->searchable(),
+
+                            CheckboxList::make('sprachen')
+                            ->label('Sprachen')
+                            ->options(EscortSprachen::all()->pluck('sprachen', 'sprachen')),
+
+
                         ]),
-                    Tabs\Tab::make('Label 3')
+
+                    Tabs\Tab::make('Service im Detail')
                         ->schema([
                             // ...
+
+                            CheckboxList::make('allg_service')
+                            ->label('Service allgemein')
+                            ->options(EscortAllgemein::all()->pluck('allg_service', 'allg_service')),
+
+                            CheckboxList::make('service_fuer')
+                            ->label('Service für')
+                            ->options(EscortServicefuer::all()->pluck('service_fuer', 'service_fuer')),
+
+                            CheckboxList::make('verkehr')
+                            ->label('Verkehr')
+                            ->options(EscortVerkehr::all()->pluck('verkehr', 'verkehr')),
+
+                            TextInput::make('gv_preis')
+                            ->label('GV ab ca.')
+                            ->mask(fn (TextInput\Mask $mask) => $mask->money(prefix: '$', thousandsSeparator: ',', decimalPlaces: 2)),
+
+                            CheckboxList::make('massage')
+                            ->label('Massage')
+                            ->options(EscortMassage::all()->pluck('massage', 'massage')),
+
+                            CheckboxList::make('service_detail')
+                            ->label('Service im Detail')
+                            ->options(EscortServiceDetail::all()->pluck('service_detail', 'service_detail')),
+
+                            CheckboxList::make('service_basic')
+                            ->label('Service Basic')
+                            ->options(EscortServiceBasic::all()->pluck('service_basic', 'service_basic')),
+
+
+                            CheckboxList::make('fetisch_bizar')
+                            ->label('Fetisch- und Bizarrspielchen')
+                            ->options(EscortFetischBiszarr::all()->pluck('fetisch_bizar', 'fetisch_bizar')),
+
+                            CheckboxList::make('fetisch_basic')
+                            ->label('Fetisch- und Bizarrspielchen Basic')
+                            ->options(EscortFetischBasic::all()->pluck('fetisch_basic', 'fetisch_basic')),
+
+                            CheckboxList::make('bizarr')
+                            ->label('Fetisch- und Bizarrspielchen Basic')
+                            ->options(EscortBizarr::all()->pluck('bizarr', 'bizarr')),
+
+
+
+
                         ]),
-                        Tabs\Tab::make('Label 4')
+
+                    Tabs\Tab::make('Fotos')
                         ->schema([
+                            // ...
+                            Grid::make([
+                                'default' => 1,
+                                'sm' => 3,
+                                'xl' => 6,
+                                '2xl' => 8,
+                            ])
+                                ->schema([
+
+                                    // ...
 
                             SpatieMediaLibraryFileUpload::make('fotos')
+                            ->columnSpan([
+                                'sm' => 2,
+                                'xl' => 3,
+                                '2xl' => 4,
+                            ])
                             ->image()
                             ->collection('escortfotos')
                             ->multiple()
                             ->enableReordering()
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                 return (string) str($file->getClientOriginalName())->prepend('heidi-kaufmich-');
-                            })
-                            ->columnSpan(6),
+                            }),
+
 
                             SpatieMediaLibraryFileUpload::make('profibg')
+                            ->columnSpan([
+                                'sm' => 2,
+                                'xl' => 3,
+                                '2xl' => 4,
+                            ])
                             ->image()
                             ->collection('escorthintergrund')
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                 return (string) str($file->getClientOriginalName())->prepend('heidi-kaufmich-');
-                            })
-                            ->columnSpan(6),
+                            }),
 
-                        ])->columns(12),
-                    ]),
+                                ]),
+
+                        ]),
+
+                        Tabs\Tab::make('Intern')
+                        ->schema([
+                            // ...
+                        ]),
+
+                ])
+
 
 
 
@@ -193,15 +404,24 @@ Radio::make('wohnt_hier')
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('kundenname')
+                TextColumn::make('kundenname')
                 ->label('Kundenname')
                 ->translateLabel()
                 ->sortable()
                 ->searchable(),
+
                 Tables\Columns\TextColumn::make('updated_at')
-                ->label('Erstellt')
+                ->label('Bearbeitet')
                 ->dateTime()
                 ->since(),
+
+                SpatieMediaLibraryImageColumn::make('escortfotos')
+                ->collection('escortfotos')
+                ->height(60)
+                ->width(80)
+                ->sortable(),
+
+
 
                 Tables\Columns\TextColumn::make('khk'),
                 Tables\Columns\TextColumn::make('slug'),

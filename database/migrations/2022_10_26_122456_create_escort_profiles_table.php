@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('kundenname');
             $table->string('khk')->nullable();
             $table->string('slug')->unique()->nullable();
+            $table->string('strasse')->nullable();
             $table->string('land')->nullable();
             $table->string('plz')->nullable();
             $table->string('ort')->nullable();
@@ -75,6 +76,9 @@ return new class extends Migration
             $table->json('fetisch_basic')->nullable();
             $table->json('bizarr')->nullable();
             $table->longText('beschreibung')->nullable();
+            $table->boolean('visible')->default(true);
+            $table->date('start_date')->default('2022-01-01');
+            $table->date('end_date')->default('2023-01-01');
 
 
             $table->softDeletes();
