@@ -24,6 +24,7 @@ use App\Models\EscortFetischBasic;
 use App\Models\EscortServiceBasic;
 use App\Models\EscortIntimbeharung;
 use App\Models\EscortServiceDetail;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Tabs;
 use Livewire\TemporaryUploadedFile;
@@ -31,12 +32,14 @@ use App\Models\EscortFetischBiszarr;
 use Filament\Forms\Components\Radio;
 use App\Models\EscortPersoenlichkeit;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Tabs\Tab;
+
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Forms\Components\CheckboxList;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -134,23 +137,40 @@ class EscortProfileResource extends Resource
                             ->required()
                             ->maxLength(255),
 
+                            TextInput::make('klingelname')
+                            ->columnSpan([
+                                'sm' => 2,
+                                'xl' => 2,
+                                '2xl' => 4,
+                            ])
+                            ->label('Klingelname')
+                            ->maxLength(255),
+
+                            TextInput::make('stockwerk')
+                            ->columnSpan([
+                                'sm' => 2,
+                                'xl' => 2,
+                                '2xl' => 4,
+                            ])
+                            ->label('Stockwerk, Hinterhof etc.')
+                            ->maxLength(100),
+
+                            TextInput::make('kuenstlername')
+                            ->columnSpan([
+                                'sm' => 2,
+                                'xl' => 6,
+                                '2xl' => 4,
+                            ])
+                            ->label('Künstlername / Modell (erscheint in den Online-Anzeigen)')
+                            ->maxLength(255),
+
+
 
                                     ]),
 
 
 
 
-                            TextInput::make('klingelname')
-                            ->label('Klingelname')
-                            ->maxLength(255),
-
-                            TextInput::make('stockwerk')
-                            ->label('Stockwerk, Hinterhof etc.')
-                            ->maxLength(100),
-
-                            TextInput::make('kuenstlername')
-                            ->label('Künstlername / Modell (erscheint in den Online-Anzeigen)')
-                            ->maxLength(255),
 
                             TextInput::make('telefon')
                             ->label('Telefon (erscheint in den Online-Anzeigen)')
@@ -197,8 +217,10 @@ class EscortProfileResource extends Resource
                             ->boolean()
                             ->inline(),
 
-                            // Intern muss Card angelegt werden
-
+                            // Intern muss FieldSet angelegt werden
+                            Fieldset::make('Kontakt zu Heidi69 (nicht in der Werbung) -> nur für Rückfragen, Bildrechte etc.')
+                            ->schema([
+                            // ...
                             TextInput::make('telefon_privat')
                             ->label('Telefon /Fax (privat)')
                             ->tel()
@@ -214,6 +236,8 @@ class EscortProfileResource extends Resource
                             ->label('WhatsApp / SMS')
                             ->boolean()
                             ->inline(),
+                            ]),
+
 
                         ]),
 
@@ -221,35 +245,141 @@ class EscortProfileResource extends Resource
                     Tabs\Tab::make('Eigenschaften')
                         ->schema([
                             // ...
-                            TextInput::make('alter')
-                            ->maxLength(2),
+                            Grid::make([
+                                'default' => 1,
+                                'sm' => 3,
+                                'xl' => 6,
+                                '2xl' => 8,
+                            ])
+                                ->schema([
 
-                            Select::make('persoenlichkeit')
-                            ->label('Persönlichleit')
-                            ->options(EscortPersoenlichkeit::all()->pluck('persoenlichkeit', 'persoenlichkeit'))
-                            ->searchable(),
+                                    TextInput::make('alter')
+                                    ->columnSpan([
+                                        'sm' => 2,
+                                        'md' => 2,
+                                        'lg' => 2,
+                                        'xl' => 2,
+                                        '2xl' => 4,
+                                    ])
+                                    ->maxLength(2),
 
-                            CheckboxList::make('haare')
-                            ->label('Haare')
-                            ->options(EscortHaare::all()->pluck('haare', 'haare')),
+                                    Select::make('persoenlichkeit')
+                                    ->columnSpan([
+                                        'sm' => 2,
+                                        'md' => 2,
+                                        'lg' => 2,
+                                        'xl' => 3,
+                                        '2xl' => 4,
+                                    ])
+                                    ->label('Persönlichleit')
+                                    ->options(EscortPersoenlichkeit::all()->pluck('persoenlichkeit', 'persoenlichkeit'))
+                                    ->searchable(),
+
+                                    CheckboxList::make('haare')
+                                    ->columnSpan([
+                                        'sm' => 2,
+                                        'md' => 4,
+                                        'lg' => 4,
+                                        'xl' => 4,
+                                        '2xl' => 4,
+                                    ])
+                                    ->label('Haare')
+                                    ->options(EscortHaare::all()->pluck('haare', 'haare'))
+                                    ->columns(6),
+
+
+
+
+                                    // ...
+
+                                    Fieldset::make('Busen / Körper')
+                                    ->columnSpan([
+                                        'sm' => 3,
+                                        'xl' => 6,
+                                        '2xl' => 8,
+                                    ])
+                                    ->schema([
+                                        // ...
+                                        TextInput::make('bh_groesse')
+                                        ->label('BH-Größe (z.B. 80C, 75B)')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'md' => 2,
+                                            'lg' => 4,
+                                            'xl' =>4,
+                                            '2xl' => 4,
+                                        ])
+
+                                        ->maxLength(5),
+
+
+                                        Select::make('busen_merkmale')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'md' => 2,
+                                            'lg' => 4,
+                                            'xl' => 4,
+                                            '2xl' => 4,
+                                        ])
+
+                                        ->label('Stehend, fest, natur etc.')
+                                        ->options(EscortBrust::all()->pluck('busen_merkmale', 'busen_merkmale'))
+                                        ->searchable(),
+
+                                        TextInput::make('konfektion_groesse')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 2,
+                                            '2xl' => 4,
+                                        ])
+
+                                        ->label('Konfektion groesse')
+                                        ->maxLength(5)
+                                        ->columns(2),
+
+                                        TextInput::make('koerper_groesse')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 2,
+                                            '2xl' => 4,
+                                        ])
+
+                                        ->label('Körper größe')
+                                        ->maxLength(5)
+                                        ->columns(2),
+
+                                        TextInput::make('koerper_gewicht')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 2,
+                                            '2xl' => 4,
+                                        ])
+
+                                        ->label('Körper gewicht')
+                                        ->maxLength(5)
+                                        ->columns(2),
+
+                                        TextInput::make('schuh_groesse')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 2,
+                                            '2xl' => 4,
+                                        ])
+
+                                        ->label('Schuhgröße')
+                                        ->maxLength(5)
+                                        ->columns(2),
+
+
+                                        ])->columns(8),
+
+
+                                    ]),
+
+
 
                             // Busen Körper
-                            TextInput::make('bh_groesse')
-                            ->maxLength(5),
 
-                            Select::make('busen_merkmale')
-                            ->label('Busen / Körper')
-                            ->options(EscortBrust::all()->pluck('busen_merkmale', 'busen_merkmale'))
-                            ->searchable(),
-
-                            TextInput::make('konfektion_groesse')
-                            ->maxLength(5),
-                            TextInput::make('koerper_groesse')
-                            ->maxLength(5),
-                            TextInput::make('koerper_gewicht')
-                            ->maxLength(5),
-                            TextInput::make('schuh_groesse')
-                            ->maxLength(5),
 
                             Select::make('hautfarbe')
                             ->label('Hautfarbe')
@@ -296,49 +426,179 @@ class EscortProfileResource extends Resource
                     Tabs\Tab::make('Service im Detail')
                         ->schema([
                             // ...
+                            Grid::make([
+                                'default' => 1,
+                                'sm' => 3,
+                                'xl' => 6,
+                                '2xl' => 8,
+                            ])
+                                ->schema([
 
-                            CheckboxList::make('allg_service')
-                            ->label('Service allgemein')
-                            ->options(EscortAllgemein::all()->pluck('allg_service', 'allg_service')),
-
-                            CheckboxList::make('service_fuer')
-                            ->label('Service für')
-                            ->options(EscortServicefuer::all()->pluck('service_fuer', 'service_fuer')),
-
-                            CheckboxList::make('verkehr')
-                            ->label('Verkehr')
-                            ->options(EscortVerkehr::all()->pluck('verkehr', 'verkehr')),
-
-                            TextInput::make('gv_preis')
-                            ->label('GV ab ca.')
-                            ->mask(fn (TextInput\Mask $mask) => $mask->money(prefix: '$', thousandsSeparator: ',', decimalPlaces: 2)),
-
-                            CheckboxList::make('massage')
-                            ->label('Massage')
-                            ->options(EscortMassage::all()->pluck('massage', 'massage')),
-
-                            CheckboxList::make('service_detail')
-                            ->label('Service im Detail')
-                            ->options(EscortServiceDetail::all()->pluck('service_detail', 'service_detail')),
-
-                            CheckboxList::make('service_basic')
-                            ->label('Service Basic')
-                            ->options(EscortServiceBasic::all()->pluck('service_basic', 'service_basic')),
+                                    // ...
 
 
-                            CheckboxList::make('fetisch_bizar')
-                            ->label('Fetisch- und Bizarrspielchen')
-                            ->options(EscortFetischBiszarr::all()->pluck('fetisch_bizar', 'fetisch_bizar')),
+                                    Fieldset::make('Service allgemein')
+                                    ->columnSpan([
+                                        'sm' => 3,
+                                        'xl' => 2,
+                                        '2xl' => 4,
+                                    ])
+                                    ->schema([
+                                        // ...
+                                        CheckboxList::make('allg_service')
+                                        ->label('Verkehr')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->options(EscortAllgemein::all()->pluck('allg_service', 'allg_service'))
+                                        ->columns(2),
 
-                            CheckboxList::make('fetisch_basic')
-                            ->label('Fetisch- und Bizarrspielchen Basic')
-                            ->options(EscortFetischBasic::all()->pluck('fetisch_basic', 'fetisch_basic')),
+                                        CheckboxList::make('service_fuer')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
 
-                            CheckboxList::make('bizarr')
-                            ->label('Fetisch- und Bizarrspielchen Basic')
-                            ->options(EscortBizarr::all()->pluck('bizarr', 'bizarr')),
+                                        ->label('Service für')
+                                        ->options(EscortServicefuer::all()->pluck('service_fuer', 'service_fuer'))
+                                        ->columns(2),
 
 
+                                    ])
+                                    ->columns(3),
+
+                                    Fieldset::make('Verkehr & Preis')
+                                    ->columnSpan([
+                                        'sm' => 3,
+                                        'xl' => 4,
+                                        '2xl' => 4,
+                                    ])
+                                    ->schema([
+                                        // ...
+                                        CheckboxList::make('verkehr')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->label('Verkehr')
+                                        ->options(EscortVerkehr::all()->pluck('verkehr', 'verkehr'))
+                                        ->columns(3),
+
+
+                                        TextInput::make('gv_preis')
+                                        ->label('GV ab ca. Wird nicht veröffentlicht!')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->mask(fn (TextInput\Mask $mask) => $mask->money(prefix: '$', thousandsSeparator: ',', decimalPlaces: 2)),
+
+
+                                    ])->columns(2),
+
+
+                                    Fieldset::make('Massageservice')
+                                    ->columnSpan([
+                                        'sm' => 3,
+                                        'xl' => 6,
+                                        '2xl' => 4,
+                                    ])
+                                    ->schema([
+                                        // ...
+                                        CheckboxList::make('massage')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->label('Massage')
+                                        ->options(EscortMassage::all()->pluck('massage', 'massage'))
+                                        ->columns(4),
+
+                                    ])->columns(2),
+
+
+                                    Fieldset::make('Service im Detail')
+                                    ->columnSpan([
+                                        'sm' => 3,
+                                        'xl' => 6,
+                                        '2xl' => 6,
+                                    ])
+                                    ->schema([
+                                        // ...
+                                        CheckboxList::make('service_detail')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->label('Service im Detail')
+                                        ->options(EscortServiceDetail::all()->pluck('service_detail', 'service_detail'))
+                                        ->columns(4),
+
+
+                                        CheckboxList::make('service_basic')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->label('Service Basic')
+                                        ->options(EscortServiceBasic::all()->pluck('service_basic', 'service_basic'))
+                                        ->columns(4),
+                                    ])->columns(2),
+
+
+                                    Fieldset::make('Verkehr & Preis')
+                                    ->columnSpan([
+                                        'sm' => 3,
+                                        'xl' => 6,
+                                        '2xl' => 6,
+                                    ])
+                                    ->schema([
+                                        // ...
+                                        CheckboxList::make('fetisch_bizar')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->label('Fetisch- und Bizarrspielchen')
+                                        ->options(EscortFetischBiszarr::all()->pluck('fetisch_bizar', 'fetisch_bizar'))
+                                        ->columns(4),
+
+
+                                        CheckboxList::make('fetisch_basic')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->label('Fetisch- und Bizarrspielchen Basic')
+                                        ->options(EscortFetischBasic::all()->pluck('fetisch_basic', 'fetisch_basic'))
+                                        ->columns(4),
+
+                                        CheckboxList::make('bizarr')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 3,
+                                            '2xl' => 4,
+                                        ])
+                                        ->label('Fetisch- und Bizarrspielchen Basic')
+                                        ->options(EscortBizarr::all()->pluck('bizarr', 'bizarr'))
+                                        ->columns(4),
+
+
+
+                                    ])->columns(2),
+
+
+                                ]),
 
 
                         ]),
@@ -392,7 +652,7 @@ class EscortProfileResource extends Resource
                             // ...
                         ]),
 
-                ])
+                ])->activeTab(2)
 
 
 
