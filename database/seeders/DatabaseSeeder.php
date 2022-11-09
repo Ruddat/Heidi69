@@ -21,15 +21,13 @@ class DatabaseSeeder extends Seeder
 
 
 
-        \App\Models\User::factory()->create([
-            'name' => 'Ruddat',
-            'email' => 'ingo.ruddat@gmail.com',
-            'password' => bcrypt('Ruddat66'),
+   //     \App\Models\User::factory()->create([
+   //         'name' => 'Ruddat',
+   //         'email' => 'ingo.ruddat@gmail.com',
+   //         'password' => bcrypt('Ruddat66'),
+  //       ]);
 
-
-         ]);
-
-        \App\Models\User::factory(10)->create();
+    //    \App\Models\User::factory(10)->create();
 
         EscortProfile::factory(6)->create();
 
@@ -60,6 +58,8 @@ class DatabaseSeeder extends Seeder
            //  PostSeeder::class,
           //  CommentSeeder::class,
         ]);
+
+        \App\Models\User::factory(10)->create();
 
 
     }

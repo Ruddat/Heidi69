@@ -105,9 +105,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $superAdmin = User::create([
             'name' => 'super admin',
             'is_admin' => 1,
-            'email' => 'super@admin.com',
+            'email' => 'ingo.ruddat@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('password'),
+            'password' => Hash::make('Ruddat66'),
             'remember_token' => Str::random(10),
         ]);
 
