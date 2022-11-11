@@ -262,7 +262,7 @@ return [
     |
     */
 
-    'favicon' => 'icons8-straßenhure-sf-ultralight-filled-16.png',
+    'favicon' => 'strassenhure-16.png',
 
     /*
     |--------------------------------------------------------------------------

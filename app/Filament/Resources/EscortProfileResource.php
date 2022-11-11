@@ -107,7 +107,7 @@ class EscortProfileResource extends Resource
                                 'xl' => 10,
                                 '2xl' => 10,
                             ])
-                            ->label('Strasse')
+                            ->label('Straße')
                             ->maxLength(255),
 
                             TextInput::make('land')
