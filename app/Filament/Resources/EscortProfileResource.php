@@ -53,8 +53,6 @@ class EscortProfileResource extends Resource
 {
     protected static ?string $model = EscortProfile::class;
 
-    protected static ?string $recordTitleAttribute = 'kundenname';
-
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
