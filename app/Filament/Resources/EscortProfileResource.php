@@ -53,6 +53,8 @@ class EscortProfileResource extends Resource
 {
     protected static ?string $model = EscortProfile::class;
 
+    protected static ?string $recordTitleAttribute = 'kundenname';
+
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
@@ -105,7 +107,7 @@ class EscortProfileResource extends Resource
                                 'xl' => 10,
                                 '2xl' => 10,
                             ])
-                            ->label('Strasse')
+                            ->label('Straße')
                             ->maxLength(255),
 
                             TextInput::make('land')
