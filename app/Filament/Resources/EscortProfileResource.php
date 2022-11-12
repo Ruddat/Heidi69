@@ -714,7 +714,7 @@ class EscortProfileResource extends Resource
                             // ...
                         ]),
 
-                ])->activeTab(2)
+                ])//->activeTab(1)
 
 
 
@@ -741,11 +741,17 @@ class EscortProfileResource extends Resource
                 SpatieMediaLibraryImageColumn::make('escortfotos')
                 ->collection('escortfotos')
                 ->conversion('thumbs-fotos')
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->sortable(),
 
 
-                Tables\Columns\TextColumn::make('khk'),
-                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\TextColumn::make('khk')
+                ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('slug')
+                ->toggleable(isToggledHiddenByDefault: true),
+
+
                 Tables\Columns\TextColumn::make('land'),
                 Tables\Columns\TextColumn::make('plz'),
                 Tables\Columns\TextColumn::make('ort'),
