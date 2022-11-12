@@ -80,7 +80,7 @@ return new class extends Migration
             $table->date('start_date')->default('2022-01-01');
             $table->date('end_date')->default('2023-01-01');
 
-
+            $table->string('order_column')->nullable();
             $table->softDeletes();
 
             $table->timestamps();

@@ -4,9 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\EscortFetischBasic;
+use App\Models\EscortProfile;
 use App\Models\EscortSprachen;
 use Illuminate\Database\Seeder;
+use App\Models\EscortFetischBasic;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,17 +21,15 @@ class DatabaseSeeder extends Seeder
 
 
 
-        \App\Models\User::factory()->create([
-            'name' => 'Ruddat',
-            'email' => 'ingo.ruddat@gmail.com',
-            'password' => bcrypt('Ruddat66'),
+   //     \App\Models\User::factory()->create([
+   //         'name' => 'Ruddat',
+   //         'email' => 'ingo.ruddat@gmail.com',
+   //         'password' => bcrypt('Ruddat66'),
+  //       ]);
 
+    //    \App\Models\User::factory(10)->create();
 
-         ]);
-
-        \App\Models\User::factory(10)->create();
-
-        \App\Models\EscortProfile::factory(6)->create();
+        EscortProfile::factory(6)->create();
 
 
         $this->call([
@@ -53,11 +52,14 @@ class DatabaseSeeder extends Seeder
             EscortFetischBiszarrSeeder::class,
             EscortFetischBasicSeeder::class,
             EscortBizarrSeeder::class,
+            RolesAndPermissionsSeeder::class,
 
 
            //  PostSeeder::class,
           //  CommentSeeder::class,
         ]);
+
+        \App\Models\User::factory(10)->create();
 
 
     }

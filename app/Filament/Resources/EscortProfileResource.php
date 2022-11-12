@@ -26,6 +26,8 @@ use App\Models\EscortIntimbeharung;
 use App\Models\EscortServiceDetail;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Tabs;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Filters\Filter;
 use Livewire\TemporaryUploadedFile;
 use App\Models\EscortFetischBiszarr;
 use Filament\Forms\Components\Radio;
@@ -33,10 +35,11 @@ use App\Models\EscortPersoenlichkeit;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Tabs\Tab;
-use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Filters\TrashedFilter;
@@ -50,7 +53,7 @@ class EscortProfileResource extends Resource
 {
     protected static ?string $model = EscortProfile::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
     {
@@ -720,6 +723,7 @@ class EscortProfileResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->reorderable('order_column')
             ->columns([
                 TextColumn::make('kundenname')
                 ->label('Kundenname')
@@ -736,7 +740,6 @@ class EscortProfileResource extends Resource
                 ->collection('escortfotos')
                 ->conversion('thumbs-fotos')
                 ->sortable(),
-
 
 
                 Tables\Columns\TextColumn::make('khk'),
@@ -803,10 +806,12 @@ class EscortProfileResource extends Resource
 
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                Filter::make('kundename')->label('Kundenname'),
             ])
             ->actions([
               //  Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
