@@ -46,6 +46,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Forms\Components\CheckboxList;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EscortProfileResource\Pages;
+use App\Filament\Resources\EscortProfileResource\Widgets\EscortProfileOverview;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
@@ -834,6 +835,13 @@ class EscortProfileResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return[
+            EscortProfileOverview::class
         ];
     }
 
