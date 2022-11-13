@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\EscortProfileResource\Pages;
 
 use App\Filament\Resources\EscortProfileResource;
-use App\Filament\Resources\EscortProfileResource\Widgets\EscortProfileOverview;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -15,13 +14,6 @@ class ListEscortProfiles extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
-        ];
-    }
-
-    protected function getHeaderWidgets(): array
-    {
-        return[
-            EscortProfileOverview::class,
         ];
     }
 }
