@@ -730,8 +730,10 @@ class EscortProfileResource extends Resource
                 TextColumn::make('kundenname')
                 ->label('Kundenname')
                 ->translateLabel()
+                ->visibleFrom('lg')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->alignLeft(),
 
                 Tables\Columns\TextColumn::make('updated_at')
                 ->label('Bearbeitet')
