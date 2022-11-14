@@ -24,7 +24,7 @@ class EscortProfileFactory extends Factory
             'ort' => $this->faker->city(),
             'klingelname' => $this->faker->name(),
             'stockwerk' => $this->faker->numerify('##'),
-            'telefon' => $this->faker->phonenumber('################################'),
+           // 'telefon' => $this->faker->phonenumber('################################'),
             'email' => $this->faker->email(),
             'zweite-email' => $this->faker->freeEmail(),
             'internetadresse' => $this->faker->url(),

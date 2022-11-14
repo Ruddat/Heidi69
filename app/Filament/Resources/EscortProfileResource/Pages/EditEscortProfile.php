@@ -15,15 +15,20 @@ class EditEscortProfile extends EditRecord
         // Runs after the form fields are saved to the database.
         $this->fillForm();
 
+
     }
 
     protected function getActions(): array
     {
         return [
-            Actions\ViewAction::make(),
+        //    Actions\ViewAction::make(),
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),
         ];
+    }
+
+    protected function getRedirectUrl(): string {
+        return $this->getResource()::getUrl('index');
     }
 }

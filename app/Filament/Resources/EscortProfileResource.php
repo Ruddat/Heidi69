@@ -24,9 +24,10 @@ use App\Models\EscortFetischBasic;
 use App\Models\EscortServiceBasic;
 use App\Models\EscortIntimbeharung;
 use App\Models\EscortServiceDetail;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Tabs;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Filters\Filter;
 use Livewire\TemporaryUploadedFile;
 use App\Models\EscortFetischBiszarr;
 use Filament\Forms\Components\Radio;
@@ -34,10 +35,11 @@ use App\Models\EscortPersoenlichkeit;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Tabs\Tab;
-
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Filters\TrashedFilter;
@@ -51,7 +53,7 @@ class EscortProfileResource extends Resource
 {
     protected static ?string $model = EscortProfile::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
     {
@@ -253,48 +255,60 @@ class EscortProfileResource extends Resource
                             ])
                                 ->schema([
 
-                                    TextInput::make('alter')
+                                    Fieldset::make('Service allgemein')
                                     ->columnSpan([
-                                        'sm' => 2,
-                                        'md' => 2,
-                                        'lg' => 2,
-                                        'xl' => 2,
-                                        '2xl' => 4,
-                                    ])
-                                    ->maxLength(2),
-
-                                    Select::make('persoenlichkeit')
-                                    ->columnSpan([
-                                        'sm' => 2,
-                                        'md' => 2,
-                                        'lg' => 2,
-                                        'xl' => 3,
-                                        '2xl' => 4,
-                                    ])
-                                    ->label('Persönlichleit')
-                                    ->options(EscortPersoenlichkeit::all()->pluck('persoenlichkeit', 'persoenlichkeit'))
-                                    ->searchable(),
-
-                                    CheckboxList::make('haare')
-                                    ->columnSpan([
-                                        'sm' => 2,
+                                        'sm' => 3,
                                         'md' => 4,
-                                        'lg' => 4,
-                                        'xl' => 4,
-                                        '2xl' => 4,
+                                        'lg' => 6,
+                                        'xl' => 6,
+                                        '2xl' => 6,
                                     ])
-                                    ->label('Haare')
-                                    ->options(EscortHaare::all()->pluck('haare', 'haare'))
-                                    ->columns(6),
+                                    ->schema([
+                                        // ...
+                                        TextInput::make('alter')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'xl' => 2,
+                                            '2xl' => 4,
+                                        ])
+                                        ->label('Alter')
+                                        ->columns(3),
+
+                                        Select::make('persoenlichkeit')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'lg' => 4,
+
+                                            'xl' => 4,
+                                            '2xl' => 4,
+                                        ])
+
+                                        ->label('Persönlichleit')
+                                        ->options(EscortPersoenlichkeit::all()->pluck('persoenlichkeit', 'persoenlichkeit'))
+                                        ->searchable()
+                                        ->columns(2),
+
+                                        CheckboxList::make('haare')
+                                        ->columnSpan([
+                                            'sm' => 2,
+                                            'md' => 4,
+                                            'lg' => 6,
+                                            'xl' => 6,
+                                            '2xl' => 4,
+                                        ])
+
+                                        ->label('Haare')
+                                        ->options(EscortHaare::all()->pluck('haare', 'haare'))
+                                        ->columns(4),
 
 
-
+                                    ])->columns(6),
 
                                     // ...
-
                                     Fieldset::make('Busen / Körper')
                                     ->columnSpan([
                                         'sm' => 3,
+                                        'lg' => 6,
                                         'xl' => 6,
                                         '2xl' => 8,
                                     ])
@@ -373,32 +387,78 @@ class EscortProfileResource extends Resource
 
                                         ])->columns(8),
 
+                                        Fieldset::make('Service allgemein')
+                                        ->columnSpan([
+                                            'sm' => 3,
+                                            'md' => 4,
+                                            'lg' => 6,
+                                            'xl' => 6,
+                                            '2xl' => 6,
+                                        ])
+                                        ->schema([
+                                            // ...
+                                            Select::make('hautfarbe')
+                                            ->columnSpan([
+                                                'sm' => 2,
+                                                'xl' => 2,
+                                                '2xl' => 4,
+                                            ])
+                                            ->label('Hautfarbe')
+                                            ->options(EscortHautfarbe::all()->pluck('hautfarbe', 'hautfarbe'))
+                                            ->searchable()
+                                            ->columns(2),
+
+                                            Select::make('augenfarbe')
+                                            ->columnSpan([
+                                                'sm' => 2,
+                                                'xl' => 2,
+                                                '2xl' => 4,
+                                            ])
+
+                                            ->label('Augenfarbe')
+                                            ->options(EscortAugenfarbe::all()->pluck('augenfarbe', 'augenfarbe'))
+                                            ->searchable()
+                                            ->columns(2),
+
+                                            Select::make('intimbehaarung')
+                                            ->columnSpan([
+                                                'sm' => 2,
+                                                'lg' => 2,
+                                                'xl' => 2,
+                                                '2xl' => 4,
+                                            ])
+
+                                            ->label('Körper- und Intimbehaarung')
+                                            ->options(EscortIntimbeharung::all()->pluck('intimbehaarung', 'intimbehaarung'))
+                                            ->searchable()
+                                            ->columns(2),
+
+                                            CheckboxList::make('koerperschmuck')
+                                            ->columnSpan([
+                                                'sm' => 2,
+                                                'lg' => 6,
+                                                'xl' => 6,
+                                                '2xl' => 6,
+                                            ])
+
+                                            ->label('Körperschmuck')
+                                            ->options(EscortPiercing::all()->pluck('piercing', 'piercing'))
+                                            ->columns(4),
+
+
+                                        ])
+                                        ->columns(6),
+
+
+
+
+
 
                                     ]),
 
 
 
                             // Busen Körper
-
-
-                            Select::make('hautfarbe')
-                            ->label('Hautfarbe')
-                            ->options(EscortHautfarbe::all()->pluck('hautfarbe', 'hautfarbe'))
-                            ->searchable(),
-
-                            Select::make('augenfarbe')
-                            ->label('Augenfarbe')
-                            ->options(EscortAugenfarbe::all()->pluck('augenfarbe', 'augenfarbe'))
-                            ->searchable(),
-
-                            Select::make('intimbehaarung')
-                            ->label('Körper- und Intimbehaarung')
-                            ->options(EscortIntimbeharung::all()->pluck('intimbehaarung', 'intimbehaarung'))
-                            ->searchable(),
-
-                            CheckboxList::make('koerperschmuck')
-                            ->label('Körperschmuck')
-                            ->options(EscortPiercing::all()->pluck('piercing', 'piercing')),
 
                             CheckboxList::make('sonstiges')
                             ->label('Sonstiges')
@@ -628,7 +688,7 @@ class EscortProfileResource extends Resource
                             ->enableReordering()
                             ->getUploadedFileNameForStorageUsing(function (TemporaryUploadedFile $file): string {
                                 return (string) str($file->getClientOriginalName())->prepend('heidi-kaufmich-');
-                            }),
+                            })->reactive(),
 
 
                             SpatieMediaLibraryFileUpload::make('profibg')
@@ -663,6 +723,7 @@ class EscortProfileResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->reorderable('order_column')
             ->columns([
                 TextColumn::make('kundenname')
                 ->label('Kundenname')
@@ -677,10 +738,8 @@ class EscortProfileResource extends Resource
 
                 SpatieMediaLibraryImageColumn::make('escortfotos')
                 ->collection('escortfotos')
-                ->height(60)
-                ->width(80)
+                ->conversion('thumbs-fotos')
                 ->sortable(),
-
 
 
                 Tables\Columns\TextColumn::make('khk'),
@@ -747,10 +806,12 @@ class EscortProfileResource extends Resource
 
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
+                Filter::make('kundename')->label('Kundenname'),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+              //  Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
