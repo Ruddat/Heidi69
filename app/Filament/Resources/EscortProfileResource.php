@@ -37,6 +37,7 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ToggleColumn;
@@ -46,9 +47,9 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Forms\Components\CheckboxList;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EscortProfileResource\Pages;
-use App\Filament\Resources\EscortProfileResource\Widgets\EscortProfileOverview;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use App\Filament\Resources\EscortProfileResource\Widgets\EscortProfileOverview;
 
 class EscortProfileResource extends Resource
 {
@@ -730,6 +731,8 @@ class EscortProfileResource extends Resource
             ->columns([
                 TextColumn::make('kundenname')
                 ->label('Kundenname')
+                ->tooltip('Kundenname')
+                ->tooltip(fn (Model $record): string => "By {$record->kundenname}")
                 ->translateLabel()
                 ->visibleFrom('lg')
                 ->sortable()
