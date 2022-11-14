@@ -37,6 +37,7 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Tabs\Tab;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ToggleColumn;
@@ -48,10 +49,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\EscortProfileResource\Pages;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use App\Filament\Resources\EscortProfileResource\Widgets\EscortProfileOverview;
 
 class EscortProfileResource extends Resource
 {
     protected static ?string $model = EscortProfile::class;
+
+    protected static ?string $recordTitleAttribute = 'kundenname';
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
@@ -105,7 +109,7 @@ class EscortProfileResource extends Resource
                                 'xl' => 10,
                                 '2xl' => 10,
                             ])
-                            ->label('Strasse')
+                            ->label('Straße')
                             ->maxLength(255),
 
                             TextInput::make('land')
@@ -712,7 +716,7 @@ class EscortProfileResource extends Resource
                             // ...
                         ]),
 
-                ])->activeTab(2)
+                ])//->activeTab(1)
 
 
 
@@ -727,9 +731,13 @@ class EscortProfileResource extends Resource
             ->columns([
                 TextColumn::make('kundenname')
                 ->label('Kundenname')
+                ->tooltip('Kundenname')
+                ->tooltip(fn (Model $record): string => "By {$record->kundenname}")
                 ->translateLabel()
+                ->visibleFrom('lg')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->alignLeft(),
 
                 Tables\Columns\TextColumn::make('updated_at')
                 ->label('Bearbeitet')
@@ -739,11 +747,17 @@ class EscortProfileResource extends Resource
                 SpatieMediaLibraryImageColumn::make('escortfotos')
                 ->collection('escortfotos')
                 ->conversion('thumbs-fotos')
+                ->toggleable(isToggledHiddenByDefault: true)
                 ->sortable(),
 
 
-                Tables\Columns\TextColumn::make('khk'),
-                Tables\Columns\TextColumn::make('slug'),
+                Tables\Columns\TextColumn::make('khk')
+                ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('slug')
+                ->toggleable(isToggledHiddenByDefault: true),
+
+
                 Tables\Columns\TextColumn::make('land'),
                 Tables\Columns\TextColumn::make('plz'),
                 Tables\Columns\TextColumn::make('ort'),
@@ -824,6 +838,13 @@ class EscortProfileResource extends Resource
     {
         return [
             //
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return[
+            EscortProfileOverview::class
         ];
     }
 

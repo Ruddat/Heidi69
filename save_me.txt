@@ -1,0 +1,276 @@
+    1  npn install
+    2  cd heidi69
+    3  php artisan make:model Property -mf
+    4  composer require filament/tables:"^2.0"
+    5  php artisan tables:install
+    6  npm install alpinejs @alpinejs/focus tailwindcss @tailwindcss/forms @tailwindcss/typography --save-dev
+    7  php artisan vendor:publish --tag=tables-config
+    8  php artisan make:filament-resource Customer
+    9  php artisan make:filament-resource Customer --simple
+   10  php artisan make:filament-resource Customer --generate
+   11  php artisan make:filament-resource Customer --generate -mf
+   12  php artisan make:filament-resource Customer --generate --mf
+   13  php artisan make:model Post -m 
+   14  php artisan make:filament-resource PostResource
+   15  .code
+   16  code.
+   17  cpo
+   18  php artisan make:model Ladie -mf
+   19  php artisan make:filament-resource LadieResource
+   20  php artisan migrate:refresh
+   21  phpmyadmin
+   22  cd ladoies
+   23  php artisan make:filament-resource User --generate --view
+   24  php artisan make:filament-widget BlogPostsChart --chart
+   25  php artisan make:model LadieMassage -mf
+   26  php artisan make:filament-resource LadieMassage --generate --view
+   27  php artisan make:filament-resource Ladie --generate --view
+   28  php artisan make:model LadieVerkehr -mf
+   29  php artisan make:filament-resource LadieVerkehr --generate --view
+   30  php artisan make:component Frontend/Layout
+   31  php artisan make:filament-resource Heidi --generate --view
+   32  php artisan filament
+   33  relation-manager
+   34  php artisa storage/link
+   35  php artisa storage:link
+   36  php artisan make:model LadieTyp -mf
+   37  composer create-project laravel/laravel coders_filament_admin_panel --jet
+   38  php artisan make:model LadieAlter -mf
+   39  php artisan make:model LadieFoto -mf
+   40  php artisan make:model LadieSprachen -mfs
+   41  cd filament-emploes
+   42  cd filament-emploeys
+   43  composer require laravel/breeze --dev
+   44  php artisan breeze:install
+   45  code
+   46  php artisan migrate:fresh seed
+   47  php artisan make:model Country -m
+   48  php artisan make:model State -m
+   49  php artisan make:model City -m
+   50  php artisan make:model Department -m
+   51  php artisan make:model Employee -m
+   52  php artisan make:filament-resource State
+   53  php artisan make:filament-resource City
+   54  php artisan make:filament-resource Department
+   55  php artisan make:filament-resource Employee
+   56  php artisan make:filament-resource Country
+   57  whereis php
+   58  cd ladies
+   59  npm install 
+   60  npm run#
+   61  npm run -dev
+   62  php artisan filament:quickstart
+   63  cd filament-tes-app
+   64  cd..
+   65  laravel new coders_filament_admin_panel --jet
+   66  php laravel new coders_filament_admin_panel --jet
+   67  cd filament-test-app
+   68  compuser update
+   69  php artisan vendor:publish --tag=filament-forms-translations
+   70  php artisan vendor:publish --tag=filament-tables-translations
+   71  composer require laravel/fortify
+   72  php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
+   73  npm install -D tailwindcss postcss autoprefixer
+   74  npx tailwindcss init -p
+   75  composer require uccellolabs/filament-theme-color
+   76  composer require ibrahim-bedir/filament-dynamic-settings-page
+   77  php artisan filament-dynamic-settings-page:install
+   78  composer require shuvroroy/filament-spatie-laravel-health
+   79  php artisan vendor:publish --tag="health-migrations"
+   80  php artisan vendor:publish --tag="filament-spatie-health-config"
+   81  composer test
+   82  php artisan make modell:test -mfs
+   83  php artisan make modell:fialament-page test -mfs
+   84  php artisan make modell:filament-page test -mfs
+   85  git init
+   86  Git commit -m "Laravel installiert"
+   87  git checkout -b projekt-aufsetzen
+   88  composer require laravel/jetstream
+   89  cd heide69-app
+   90  heidi69-app
+   91  Git commit -m "Jetstream installiert"
+   92  git commit -m "Jetstream installiert"
+   93  git commit -m "Filament installiert"
+   94  php artisan migrate:fresh -seed
+   95  git commit -m "Filament installiert & konfiguriert"
+   96  git commit -m "Favicon, APP_NAME"
+   97  clear
+   98  git merge projekt-aufsetzen --no-ff
+   99  git checkout -p dateneingabe
+  100  git checkout -b dateneingabe
+  101  php artisan make:model escort_profile -mf
+  102  git commit -m "Escort Profil Datenbank Modell erstellt"
+  103  php artisan migrate:fresh
+  104  php artisan make:migration EscortProfile -mf
+  105  php artisan make:model:model EscortProfile -mf
+  106  php artisan make:model EscortProfile -mf
+  107  composer require doctrine/dbal
+  108  git commit -m "Doctrine für Filament installiert"
+  109  php artisan make:filament-resource EscortProfile --generate --soft-deletes --view
+  110  php artisan make:migration EscortPersoenlichkeit -ms
+  111  php artisan make:modell EscortPersoenlichkeit -ms
+  112  php artisan make:model EscortPersoenlichkeit -ms
+  113  php artisan make:model EscortHaare -ms
+  114  git commit -m "Escort Persönlichkeit & Haare Model, Seeder"
+  115  php artisan make:model EscortBrust -ms
+  116  php artisan make:model EscortHautfarbe -ms
+  117  php artisan make:model EscortAugenfarbe -ms
+  118  php artisan make:model Escortbeharung -ms
+  119  php artisan make:model EscortIntimbeharung -ms
+  120  git commit -m "Escort Brust, Augenfarbe, Hautfarbe & Intimbehaarung Datenbank & Seeder erstellt"
+  121  php artisan make:model EscortPiercing -ms
+  122  php artisan make:model EscortSonstiges -ms
+  123  php artisan make:model EscortType -ms
+  124  git commit -m "Telefon Input gefixt, Escort Piercing, Profile, Sonstiges & Typ Datenbank & Seeder erstellt"
+  125  php artisan make:model EscortSprachen -ms
+  126  php artisan make:model EscortAllgemein -ms
+  127  php artisan make:model EscortServicefuer -ms
+  128  php artisan make:model EscortVerkehr -ms
+  129  php artisan make:model EscortMassage -ms
+  130  php artisan make:model EscortServiceDetail -ms
+  131  git commit -m "Escort Allgemein, Massage, ServiceDetail, Service für, Sprachen & Verkehr Datenbank & Seeder erstellt"
+  132  php artisan make:model EscortServiceBasic -ms
+  133  php artisan make:model EscortFetischBiszarr -ms
+  134  php artisan make:model EscortFetischBasic -ms
+  135  php artisan make:model EscortBizarr -ms
+  136  git commit -m "Escort FetischBasic, FetischBizar, Bizarr, ServiceBasic Datenbank Modell & Seeders erstellt"
+  137  git checkout -b bilderupload
+  138  git commit -m "Medialibray installiert"
+  139  git commit -m "Medialibray Datenbank feld order_colum vor collection verschoben zum besseren ablesen"
+  140  git commit -m "Bildbennnung"
+  141  php artisan config:cache
+  142  php artisan queue:restart
+  143  composer install
+  144  composer
+  145  composer reinstall
+  146  composer reinstall spatie
+  147  composer reinstall filament/spatie-laravel-media-library-plugin:"^2.0"
+  148  composer dump autoöload
+  149  composer dump autoload
+  150  php artisan vendor:publish --tag=jetstream-views
+  151  nom rund dev
+  152  php artisan jetstream:install livewire
+  153  cd mediaspatie
+  154  composer require filament/filament:"^2.0"
+  155  php artisan vendor:publish --tag=filament-config
+  156  php artisan vendor:publish --tag=filament-translations
+  157  php artisan make:filament-user
+  158  composer require filament/forms:"^2.0"
+  159  php artisan forms:install
+  160  php artisan vendor:publish --tag=forms-config
+  161  php artisan vendor:publish --tag=forms-translations
+  162  php artisan vendor:publish --tag=filament-support-translations
+  163  php artisan filament:upgrade
+  164  npm install autoprefixer --save-dev
+  165  npm fund
+  166  composer require doctrine/dbal --dev
+  167  php artisan make:filament-resource Customer --generate --view --soft-deletes
+  168  php artisan make:model Customer -mf
+  169  php artisan migrate:fresh 
+  170  composer require filament/spatie-laravel-media-library-plugin:"^2.0"
+  171  php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="migrations"
+  172  php artisan session:table
+  173  composer dump-autoloadcomposer dump-autoloadcomposer dump-autoload
+  174  composer dump-autoload
+  175  php artisan migrate 
+  176  dit
+  177  git commit -m "Design anpassung Mobile first"
+  178  git commit -m "weitere Design anpassung Mobile first"
+  179  php artisan storage:unlink
+  180  php artisan
+  181  php artisan make:filament-widget StatsOverview --stats-overview
+  182  php artisan make:filament-widget EscortChart --chart
+  183  nom run dev
+  184  php artisan make:filament-widget UserChart --chart
+  185  composer require spatie/laravel-permission
+  186   php artisan config:clear
+  187  add .
+  188   composer require spatie/laravel-permission
+  189  git ?
+  190  git --help
+  191  git help -a
+  192  git commit -m " Formular anpassung Mobile first"
+  193  git checkout master
+  194  git merge Eingabe_anpassen --no-ff
+  195  git checkout -b userverwaltung
+  196  php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+  197  git commit -m " Spatie/Permisson installieren und konfigurieren"
+  198  php artisan migrate add_is_admin_to_users_table
+  199  php artisan migration add_is_admin_to_users_table
+  200  php artisan make:migration add_is_admin_to_users_table
+  201  php artisan make:seeder RolesAndPermissionsSeeder
+  202  php artisan make:filament-resource Permission --simple
+  203  git commit -m " Filament Permission controller erstellt"
+  204  php artisan make:filament-resource Role
+  205  git commit -m "Role Controller erstellt"
+  206  php artisan make:filament-relation-manager RoleResource permissions name
+  207  git commit -m "RelationManger erstellt und Programmanpassungen gemacht"
+  208  php artisan make:filament-resource User --generate
+  209  php artisan make:migration add_soft_deletes_tu_users_table
+  210  php artisan migrate
+  211  php artisan make:filament-relation-manager UserResource roles name
+  212  php artisan make:provider FilamentServiceProvider
+  213  php artisan make:policy PermissionPolicy --model=Permission
+  214  php artisan make:policy RolePolicy --model=Role
+  215  php artisan make:policy UserPolicy --model=User
+  216  php artisan make storage:link
+  217   composer require yemenpoint/filament-google-map-location-picker
+  218  php artisan vendor:publish --tag="filament-google-map-location-picker-config"
+  219  composer require pxlrbt/filament-spotlight
+  220  composer require yepsua/filament-themes
+  221  php artisan vendor:publish --tag="yepsua-filament-themes-config"
+  222  php artisan vendor:publish --tag="yepsua-filament-themes-assets"
+  223  npm install -D tailwindcss
+  224  npx tailwindcss init
+  225  cd kaufmixh-app
+  226  php artisan mirgarete:fresh --seed
+  227  npm install tippy.js --save-dev
+  228  git commit -m "Userverwaltung fertig zur integration"
+  229  git checkout
+  230  git checkout -b statistik git branch
+  231  git checkout -b statistik
+  232  git checkout userverwaltung
+  233  git -m statistik
+  234  git merge statistik
+  235  git branch statistik
+  236  git commit -m "Suche in der Kopfzeile hinzugefügt"
+  237  npm install
+  238  npn run
+  239  npm run
+  240  npm run vite build
+  241  npm run 
+  242  npm run vite
+  243  npn build
+  244  composer require bezhansalleh/filament-language-switch
+  245  php artisan vendor:publish --tag="filament-language-switch-config"
+  246  composer require stijnvanouplines/blade-country-flags
+  247  php artisan vendor:publish --tag="filament-language-switch-views"
+  248  cd kaufmich-app
+  249  npm install tailwindcss @tailwindcss/forms @tailwindcss/typography autoprefixer tippy.js --save-dev
+  250  npn run dev
+  251  php artisan cache clear
+  252  npm build
+  253  npm install && npm run dev
+  254  npm run build
+  255  cd ..
+  256  cd heidi69-app
+  257  git checkout statistik
+  258  git merge userverwaltung --no-ff
+  259  git merge master --no-ff
+  260  git add.
+  261  git merge statistik --no-ff
+  262  code .
+  263  git checkout -b sprechen-modeprojekt-aufsetzen
+  264  composer uppdate
+  265  composer update
+  266  php artisan storage:link
+  267  php artisan cache:clear
+  268  php artisan migrate:fresh --seed
+  269  npm run dev
+  270  git add .
+  271  git diff
+  272  git -m "Sprachmodul NL eingerichtet"
+  273  git commit -m "Sprachmodul NL eingerichtet"
+  274  gitk --all&
+  275  git status
+  276  dir
