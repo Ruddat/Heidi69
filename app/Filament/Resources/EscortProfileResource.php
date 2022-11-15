@@ -529,8 +529,6 @@ class EscortProfileResource extends Resource
                                         ->label('Service für')
                                         ->options(EscortServicefuer::all()->pluck('service_fuer', 'service_fuer'))
                                         ->columns(2),
-
-
                                     ])
                                     ->columns(3),
 
